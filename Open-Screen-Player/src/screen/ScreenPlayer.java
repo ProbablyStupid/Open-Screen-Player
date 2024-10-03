@@ -38,6 +38,11 @@ public class ScreenPlayer {
 	
 	private boolean running = true;
 	
+	// Persistence preferences
+	
+	private boolean safeKey = true;
+	private int safeKeyCode = KeyEvent.VK_A;
+	
 	private ArrayList<JComponent> componentList = new ArrayList<JComponent>();
 	
 	public ScreenPlayer() {
@@ -85,15 +90,27 @@ public class ScreenPlayer {
 			
 			@Override
 			public void keyTyped(KeyEvent e) {
+				if (e.getKeyCode() == safeKeyCode)
+				{
+					System.exit(0);
+				}
 			}
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				
+				if (e.getKeyCode() == safeKeyCode)
+				{
+					System.exit(0);
+				}
 			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == safeKeyCode)
+				{
+					System.exit(0);
+				}
+				
 				Grabber.processEvent(e);
 			}
 		});
@@ -238,5 +255,27 @@ public class ScreenPlayer {
 		this.mediaQueue = mediaQueue;
 	}
 
-	
+	public boolean isSafeKey() {
+		return safeKey;
+	}
+
+	public void setSafeKey(boolean safeKey) {
+		this.safeKey = safeKey;
+	}
+
+	public int getSafeKeyCode() {
+		return safeKeyCode;
+	}
+
+	public void setSafeKeyCode(int safeKeyCode) {
+		this.safeKeyCode = safeKeyCode;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
 }
