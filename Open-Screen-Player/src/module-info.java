@@ -1,5 +1,5 @@
 module osp {
-	requires java.desktop;
+	requires transitive java.desktop;
 	
 	exports screen;
 	exports screen.media;

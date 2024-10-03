@@ -11,11 +11,11 @@ public class Media {
 	
 	/**
 	 * The duration that this media will remain on the screen for.
-	 * - Positive numbers in miliseconds.
+	 * - Positive numbers in milliseconds.
 	 * - 0 means skipping (if enabled)
 	 * - negative numbers mean infinite time
 	 */
-	protected long duration;
+	protected long duration = MediaConstants.DEFAULT_MEDIA_DURATION;
 	
 	protected boolean loaded = false;
 	
@@ -40,7 +40,8 @@ public class Media {
 	public boolean isLoaded() {
 		return loaded;
 	}
-
+	
+	@Deprecated
 	public void setLoaded(boolean loaded) {
 		this.loaded = loaded;
 	}

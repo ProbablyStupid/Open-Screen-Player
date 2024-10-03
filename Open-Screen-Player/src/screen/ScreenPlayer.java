@@ -5,15 +5,11 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import grabber.Grabber;
 import screen.media.Image;
-import screen.media.Media;
 import screen.media.MediaQueue;
 import screen.util.MediaMode;
 import screen.util.Persistance;
@@ -43,7 +39,7 @@ public class ScreenPlayer {
 	private boolean safeKey = true;
 	private int safeKeyCode = KeyEvent.VK_A;
 	
-	private ArrayList<JComponent> componentList = new ArrayList<JComponent>();
+//	private ArrayList<JComponent> componentList = new ArrayList<JComponent>();
 	
 	public ScreenPlayer() {
 		// TODO: add a reasonable `init();` mechanic.
@@ -164,7 +160,7 @@ public class ScreenPlayer {
 		
 		while (running) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(mediaQueue.getCurrent().getDuration());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
