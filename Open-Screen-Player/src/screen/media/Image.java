@@ -25,6 +25,7 @@ public class Image extends Media {
 		swingIcon = new ImageIcon(this.hardLocation);
 		JLabel label = new JLabel(swingIcon);
 		this.swingComponent = label;
+		super.loaded = true;
 		System.out.println("Loaded image: " + this.hardLocation);
 	}
 }

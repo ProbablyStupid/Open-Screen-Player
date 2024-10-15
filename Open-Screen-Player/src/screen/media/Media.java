@@ -2,6 +2,9 @@ package screen.media;
 
 import javax.swing.JComponent;
 
+import screen.util.MediaConstants;
+import screen.util.MediaSize;
+
 public class Media {
 	
 	/**
@@ -18,6 +21,8 @@ public class Media {
 	protected long duration = MediaConstants.DEFAULT_MEDIA_DURATION;
 	
 	protected boolean loaded = false;
+	
+	protected MediaSize mediaSize = MediaConstants.DEFAULT_MEDIA_SIZE;
 	
 	protected JComponent swingComponent;
 
@@ -48,6 +53,14 @@ public class Media {
 
 	public JComponent getSwingComponent() {
 		return swingComponent;
+	}
+
+	public MediaSize getMediaSize() {
+		return mediaSize;
+	}
+
+	public void setMediaSize(MediaSize mediaSize) {
+		this.mediaSize = mediaSize;
 	}
 	
 }
