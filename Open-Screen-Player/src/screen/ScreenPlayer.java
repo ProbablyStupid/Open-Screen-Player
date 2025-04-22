@@ -7,6 +7,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+
 
 import grabber.Grabber;
 import screen.media.Image;
@@ -16,6 +19,8 @@ import screen.util.Persistance;
 
 public class ScreenPlayer {
 	
+	public static final int FAILSAFE_KEY = KeyEvent.VK_A;
+	
 	private JFrame mainFrame;
 	
 	private Dimension screenSize;
@@ -24,6 +29,7 @@ public class ScreenPlayer {
 	private boolean showCursor = true;
 	private Persistance persistanceLevel = Persistance.NO_PERSISTANCE;
 	private boolean fullScreen = true;
+	private boolean init = false;
 	
 	// media display
 	
@@ -45,6 +51,11 @@ public class ScreenPlayer {
 		// TODO: add a reasonable `init();` mechanic.
 	}
 	
+	public void run() {
+		if (!init)
+			init();
+	}
+	
 	public void _define_defaults() {
 		this.screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	}
@@ -58,29 +69,6 @@ public class ScreenPlayer {
 		mainFrame.setUndecorated(true);
 		// Fullscreen
 		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		
-		switch (persistanceLevel) {
-		case DISABLE_ALL:
-			// TODO: Implement mouse disabling.
-		case DISABLE_KEYS:
-			Grabber.setKeyGrab(KeyEvent.VK_WINDOWS);
-			Grabber.setKeyGrab(KeyEvent.VK_CONTROL);
-			Grabber.setKeyGrab(KeyEvent.VK_CONTEXT_MENU);
-			Grabber.setKeyGrab(KeyEvent.VK_DELETE);
-			Grabber.setKeyGrab(KeyEvent.VK_ESCAPE);
-			Grabber.setKeyGrab(KeyEvent.VK_SHIFT);
-		case AGGRESSIVE_ON_TOP:
-			Grabber.setKeyGrab(KeyEvent.VK_ALT);
-			Grabber.setKeyGrab(KeyEvent.VK_TAB);
-		case ALWAYS_ON_TOP:
-			mainFrame.setAutoRequestFocus(true);
-			mainFrame.setAlwaysOnTop(true);
-			break;
-		case NO_PERSISTANCE:
-			break;
-		default:
-			break;
-		}
 		
 		mainFrame.addKeyListener(new KeyListener() {
 			
@@ -106,13 +94,25 @@ public class ScreenPlayer {
 				{
 					System.exit(0);
 				}
-				
-				Grabber.processEvent(e);
 			}
 		});
 		
 		mainFrame.setVisible(true);
 		mainFrame.requestFocus();
+		
+		switch (persistanceLevel) {
+		case NO_EXIT:
+			mainFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+			Grabber.startGrab();
+		case ALWAYS_ON_TOP:
+			mainFrame.setAutoRequestFocus(true);
+			mainFrame.setAlwaysOnTop(true);
+		case NO_PERSISTANCE:
+			mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+			break;
+		default:
+			break;
+		}
 		
 		System.out.println("Window initialization complete.");
 		initializeMedia();
@@ -132,6 +132,8 @@ public class ScreenPlayer {
 			System.out.println("[ERROR] NO MEDIA MODE!");
 			break;
 		};
+		
+		// TODO: implement external swing component mechanism.
 		
 		startMedia();
 	}
