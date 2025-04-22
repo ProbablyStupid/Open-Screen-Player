@@ -7,9 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-
 
 import grabber.Grabber;
 import screen.media.Image;
@@ -74,7 +72,7 @@ public class ScreenPlayer {
 			
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if (e.getKeyCode() == safeKeyCode)
+				if (e.getKeyCode() == safeKeyCode && safeKey)
 				{
 					System.exit(0);
 				}
@@ -82,7 +80,7 @@ public class ScreenPlayer {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == safeKeyCode)
+				if (e.getKeyCode() == safeKeyCode && safeKey)
 				{
 					System.exit(0);
 				}
@@ -90,7 +88,7 @@ public class ScreenPlayer {
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == safeKeyCode)
+				if (e.getKeyCode() == safeKeyCode && safeKey)
 				{
 					System.exit(0);
 				}
