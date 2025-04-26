@@ -116,8 +116,19 @@ public class ScreenPlayer {
 		initializeMedia();
 	}
 	
+	public void loadDefaultMedia() {
+		// TODO implement this feature
+	}
+	
 	public void initializeMedia() {
 		System.out.println("Initializing media");
+		
+		if (this.mediaMode == null) {
+			System.out.println("No Media Mode Set!");	
+			loadDefaultMedia();
+			return;
+		}
+		
 		switch (this.mediaMode)
 		{
 		case SINGLE_IMAGE:
@@ -127,7 +138,7 @@ public class ScreenPlayer {
 			mainFrame.getContentPane().add(this.mediaQueue.demand().getSwingComponent());
 			break;
 		default:
-			System.out.println("[ERROR] NO MEDIA MODE!");
+			System.out.println("[ERROR] NO VALID MEDIA MODE!");
 			break;
 		};
 		
